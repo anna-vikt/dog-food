@@ -1,13 +1,29 @@
-
+import cn from 'classnames';
 import './styles.css';
 import likeIcon from '../../images/save.svg';
 
-export function Card({name, price, discount, wight, description, picture, ...props}) {
+export function Card({
+  name,
+  price, 
+  discount, 
+  wight, 
+  description, 
+  picture, 
+  tags,
+  ...props}) {
   return (
     <article className="card">
         <div className="card__sticky card__sticky_type_top-left">
+        {discount !== 0 && (
           <span className="card__discount">{`-${discount}%`}</span>
-        </div>
+        )}
+        {tags && tags.map((tagName,index) => (
+          <span key={index} className={cn('tag', { [`tag_type_${tagName}`]: true })}>
+            {tagName}
+          </span>
+        )
+        )}
+      </div>
         <div className="card__sticky card__sticky_type_top-right">
           <button className="card__favorite">
             <img src={likeIcon} alt="" className="card__favorite-icon" />

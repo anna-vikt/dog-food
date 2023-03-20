@@ -7,6 +7,7 @@ import { dataCard } from "../../data";
 import { Logo } from '../logo';
 import { Search } from '../search';
 import "./styles.css";
+import { Button } from "../button";
 
 export function App() {
   const [cards, setCards] = useState(dataCard);
@@ -41,6 +42,8 @@ export function App() {
             <Search onSubmit = {handleFormSubmit} onChange = {handleInputchange}/>
           </Header>
         <main className="content container">
+          {/* <Button htmlType="button" type="primary">Купить</Button>
+          <Button htmlType="button" type="secondary">Отложить</Button> */}
           <Sort />
           <CardList goods = {cards}/>
         </main>
