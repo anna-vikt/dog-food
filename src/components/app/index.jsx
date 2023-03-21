@@ -7,7 +7,8 @@ import { dataCard } from "../../data";
 import { Logo } from '../logo';
 import { Search } from '../search';
 import "./styles.css";
-import { Button } from "../button";
+// import { Button } from "../button";
+import { api } from "../../utils/api";
 
 export function App() {
   const [cards, setCards] = useState(dataCard);
