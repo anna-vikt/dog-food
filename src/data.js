@@ -9,7 +9,7 @@ export const dataCard = [
 		"isCart": false,
 		"available": true,
 		"stock": 10,
-		"picture": "https://react-learning.ru/image-compressed/1.jpg",
+		"pictures": "https://react-learning.ru/image-compressed/1.jpg",
 		"tags": ['sale','new']
 	},
 	{
@@ -22,7 +22,7 @@ export const dataCard = [
 		"isCart": false,
 		"available": true,
 		"stock": 10,
-		"picture": "https://react-learning.ru/image-compressed/2.jpg"
+		"pictures": "https://react-learning.ru/image-compressed/2.jpg"
 	},
 	{
 		"name": "Крупная говяжья сушено-вяленая жилка",
@@ -34,7 +34,7 @@ export const dataCard = [
 		"isCart": false,
 		"available": true,
 		"stock": 10,
-		"picture": "https://react-learning.ru/image-compressed/3.jpg"
+		"pictures": "https://react-learning.ru/image-compressed/3.jpg"
 	},
 	{
 		"name": "Мелкая говяжья сушено-вяленая жилка",
@@ -46,7 +46,7 @@ export const dataCard = [
 		"isCart": false,
 		"available": true,
 		"stock": 10,
-		"picture": "https://react-learning.ru/image-compressed/4.jpg"
+		"pictures": "https://react-learning.ru/image-compressed/4.jpg"
 	},
 	{
 		"name": "Калтык говяжий для собак",
@@ -58,7 +58,7 @@ export const dataCard = [
 		"isCart": false,
 		"available": true,
 		"stock": 10,
-		"picture": "https://react-learning.ru/image-compressed/5.jpg"
+		"pictures": "https://react-learning.ru/image-compressed/5.jpg"
 	},
 	{
 		"name": "Бублик из бычьего корня",
@@ -70,7 +70,7 @@ export const dataCard = [
 		"isCart": false,
 		"available": true,
 		"stock": 10,
-		"picture": "https://react-learning.ru/image-compressed/6.jpg"
+		"pictures": "https://react-learning.ru/image-compressed/6.jpg"
 	},
 	{
 		"name": "Копыто оленье",
@@ -82,7 +82,7 @@ export const dataCard = [
 		"isCart": false,
 		"available": true,
 		"stock": 10,
-		"picture": "https://react-learning.ru/image-compressed/7.jpg"
+		"pictures": "https://react-learning.ru/image-compressed/7.jpg"
 	},
 	{
 		"name": "Бараний рубец сушенный",
@@ -94,7 +94,7 @@ export const dataCard = [
 		"isCart": false,
 		"available": true,
 		"stock": 10,
-		"picture": "https://react-learning.ru/image-compressed/8.jpg"
+		"pictures": "https://react-learning.ru/image-compressed/8.jpg"
 	},
 	{
 		"name": "Рубец говяжий для собак",
@@ -106,7 +106,7 @@ export const dataCard = [
 		"isCart": false,
 		"available": true,
 		"stock": 10,
-		"picture": "https://react-learning.ru/image-compressed/9.jpg"
+		"pictures": "https://react-learning.ru/image-compressed/9.jpg"
 	},
 	{
 		"name": "Свиные уши для собак",
@@ -118,7 +118,7 @@ export const dataCard = [
 		"isCart": false,
 		"available": true,
 		"stock": 10,
-		"picture": "https://react-learning.ru/image-compressed/10.jpg"
+		"pictures": "https://react-learning.ru/image-compressed/10.jpg"
 	},
 	{
 		"name": "Уши говяжьи для собак",
@@ -130,7 +130,7 @@ export const dataCard = [
 		"isCart": false,
 		"available": true,
 		"stock": 10,
-		"picture": "https://react-learning.ru/image-compressed/11.jpg"
+		"pictures": "https://react-learning.ru/image-compressed/11.jpg"
 	},
 	{
 		"name": "Печенья с яблоком (печень говяжья, сердце)",
@@ -142,7 +142,7 @@ export const dataCard = [
 		"isCart": false,
 		"available": true,
 		"stock": 10,
-		"picture": "https://react-learning.ru/image-compressed/12.jpg"
+		"pictures": "https://react-learning.ru/image-compressed/12.jpg"
 	},
 	{
 		"name": "Рога оленя для собак весом до 3кг. Размер XS",
@@ -154,7 +154,7 @@ export const dataCard = [
 		"isCart": false,
 		"available": true,
 		"stock": 10,
-		"picture": "https://react-learning.ru/image-compressed/13.jpg"
+		"pictures": "https://react-learning.ru/image-compressed/13.jpg"
 	},
 	{
 		"name": "Рога оленя для собак весом от 3 до 5 кг. Размер S",
@@ -166,7 +166,7 @@ export const dataCard = [
 		"isCart": false,
 		"available": true,
 		"stock": 10,
-		"picture": "https://react-learning.ru/image-compressed/14.jpg"
+		"pictures": "https://react-learning.ru/image-compressed/14.jpg"
 	},
 	{
 		"name": "Рога оленя для собак весом от 5 до 10 кг. Размер M",
@@ -178,7 +178,7 @@ export const dataCard = [
 		"isCart": false,
 		"available": true,
 		"stock": 10,
-		"picture": "https://react-learning.ru/image-compressed/15.jpg"
+		"pictures": "https://react-learning.ru/image-compressed/15.jpg"
 	},
 	{
 		"name": "Рога оленя для собак весом от 10 до 30 кг. Размер L",
@@ -190,6 +190,6 @@ export const dataCard = [
 		"isCart": false,
 		"available": true,
 		"stock": 10,
-		"picture": "https://react-learning.ru/image-compressed/16.jpg"
+		"pictures": "https://react-learning.ru/image-compressed/16.jpg"
 	}
 ]
