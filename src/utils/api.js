@@ -1,8 +1,8 @@
 class Api {
-    #baseUrl;
+    #baseurl;
     #headers;
     constructor({ baseUrl, headers }) {
-        this.#baseUrl = baseUrl;
+        this.#baseurl = baseUrl;
         this.#headers = headers;
     }
 
@@ -15,28 +15,28 @@ class Api {
     }
 
     getProductsList() {
-        return fetch(`${this.#baseUrl}/products`, {
+        return fetch(`${this.#baseurl}/products`, {
             headers: this.#headers
         })
             .then(this.#onResponse)
     }
 
     getUserInfo() {
-        return fetch(`${this.#baseUrl}/users/me`, {
+        return fetch(`${this.#baseurl}/users/me`, {
             headers: this.#headers
         })
             .then(this.#onResponse)
     }
 
     search(searchQuery) {
-        return fetch(`${this.#baseUrl}/products/search?query=${searchQuery}`, {
+        return fetch(`${this.#baseurl}/products/search?query=${searchQuery}`, {
             headers: this.#headers
         })
             .then(this.#onResponse)
     }
 
     setUserInfo({ name, about }) {
-        return fetch(`${this.#baseUrl}/users/me`, {
+        return fetch(`${this.#baseurl}/users/me`, {
             method: 'PATCH',
             headers: this.#headers,
             body: JSON.stringify({ name, about })
@@ -45,11 +45,22 @@ class Api {
     }
 
     changeLikeProductStatus(productID, like) {
-        return fetch(`${this.#baseUrl}/products/likes/${productID}`, {
+        return fetch(`${this.#baseurl}/products/likes/${productID}`, {
             method: like ? 'DELETE' : 'PUT',
             headers: this.#headers,
         })
             .then(this.#onResponse)
+    }
+
+    getProductById(idProduct) {
+        return fetch(`${this.#baseurl}/products/${idProduct}`, {
+            headers: this.#headers
+        })
+            .then(this.#onResponse)
+    }
+
+    getInfoProduct(idProduct) {
+        return Promise.all([this.getProductById(idProduct), this.getUserInfo()])
     }
 }
 
@@ -58,17 +69,9 @@ const api = new Api({
     baseUrl: 'https://api.react-learning.ru',
     headers: {
         'content-type': 'application/json',
-        authorization: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDEwN2UwOGFhMzk3MTIxODM4ZjI4Y2MiLCJncm91cCI6Imdyb3VwLTExIiwiaWF0IjoxNjc4ODAyNDQ1LCJleHAiOjE3MTAzMzg0NDV9.kZEWWebomQEcFQ3JyjUuF8l3B_o5sLselfMazIwH6VM'
+        authorization: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDEwN2UwOGFhMzk3MTIxODM4ZjI4OTgiLCJncm91cCI6Imdyb3VwLTExIiwiaWF0IjoxNjc4ODAyNDQzLCJleHAiOjE3MTAzMzg0NDN9.Y7nuAVWeA_CGJipJNTktP9raSdpM41B3s-z4l-8rE70'
     }
 })
 
-
-// api.getProductsList()
-//     .then(data => console.log(data))
-//     .catch(err => console.log(err))
-
-// api.getUserInfo()
-//     .then(data => console.log(data))
-//     .catch(err => console.log(err))
 
 export default api;

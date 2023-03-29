@@ -1,7 +1,7 @@
 import cn from 'classnames';
 import './styles.css';
-import {ReactComponent as LikeIcon} from '../../images/save.svg';
-import { isLiked } from '../../utils/product';
+import { ReactComponent as LikeIcon } from '../../images/save.svg';
+import { calcDiscountPrice, isLiked } from '../../utils/products';
 
 
 export function Card({
@@ -16,11 +16,11 @@ export function Card({
   onProductLike,
   _id,
   currentUser,
-  ...props
-}) {
-  const discount_price = Math.round(price - (price * discount) / 100);
+  ...props }) {
 
-  const like = isLiked(likes, currentUser._id);
+  const discount_price = calcDiscountPrice(price, discount);
+
+  const like = isLiked(likes, currentUser?._id);
 
   function handleClickButtonLike() {
     onProductLike({ likes, _id })
@@ -49,8 +49,16 @@ export function Card({
       <a href="#" className="card__link">
         <img src={pictures} alt={name} className="card__image" />
         <div className="card__desc">
-          <span className={discount !== 0 ? "card__old-price" : "card__price"}>{price}&nbsp;₽</span>
-          {discount !== 0 && <span className="card__price card__price_type_discount">{price}&nbsp;₽</span>}
+          {discount !== 0 ? (
+            <>
+              <span className="card__old-price">{price}&nbsp;₽</span>
+              <span className="card__price card__price_type_discount">
+                {discount_price}&nbsp;₽
+              </span>
+            </>
+          ) : (
+            <span className="card__price">{price}&nbsp;₽</span>
+          )}
           <span className="card__wight">{wight}</span>
           <h3 className="card__name">{name}</h3>
         </div>

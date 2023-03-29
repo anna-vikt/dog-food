@@ -1,12 +1,10 @@
 
-import './styles.css';
+import s from "./styles.module.css";
 
 export function Spinner() {
   return (
-    <div className="App">
-      
-    </div>
+    <>
+      <div className={s.spinner}></div>
+    </>
   );
 }
-
-

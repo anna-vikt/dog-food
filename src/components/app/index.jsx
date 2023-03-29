@@ -10,7 +10,13 @@ import "./styles.css";
 // import { Button } from "../button";
 import api from "../../utils/api";
 import { useDebounce } from "../../hooks/useDebounce";
-import { isLiked } from "../../utils/product";
+import { isLiked } from "../../utils/products";
+import { CatalogPage } from "../../pages/catalog-page";
+import { ProductPage } from "../../pages/product-page";
+import FaqPage from "../../pages/faq-page";
+
+
+
 
 export function App() {
   const [cards, setCards] = useState([]);
@@ -38,7 +44,7 @@ export function App() {
     setSearchQuery(inputData);
   }
 
- function handleProductLike(product) {
+  function handleProductLike(product) {
     const like = isLiked(product.likes, currentUser._id)
     api.changeLikeProductStatus(product._id, like)
       .then((updateCard) => {
@@ -72,13 +78,15 @@ export function App() {
 
   return (
     <>
-      <Header user={currentUser} onUpdateUser = {handleUpdateUser}>
+      <Header user={currentUser} onUpdateUser={handleUpdateUser}>
         <Logo />
         <Search onSubmit={handleFormSubmit} onChange={handleInputchange} />
       </Header>
       <main className="content container">
-        <Sort />
-        <CardList goods={cards} onProductLike = {handleProductLike} currentUser={currentUser}/>
+        <FaqPage />
+        <ProductPage />
+        <CatalogPage cards={cards} handleProductLike={handleProductLike} currentUser={currentUser} />
+
       </main>
       <Footer />
     </>
