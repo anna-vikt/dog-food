@@ -14,6 +14,8 @@ import { isLiked } from "../../utils/products";
 import { CatalogPage } from "../../pages/catalog-page";
 import { ProductPage } from "../../pages/product-page";
 import FaqPage from "../../pages/faq-page";
+import { Route, Routes } from "react-router";
+import NotFoundPage from "../../pages/not-found-page";
 
 
 
@@ -83,10 +85,12 @@ export function App() {
         <Search onSubmit={handleFormSubmit} onChange={handleInputchange} />
       </Header>
       <main className="content container">
-        <FaqPage />
-        <ProductPage />
-        <CatalogPage cards={cards} handleProductLike={handleProductLike} currentUser={currentUser} />
-
+        <Routes>
+          <Route path='/' element={<CatalogPage cards={cards} handleProductLike={handleProductLike} currentUser={currentUser} />}/>
+          <Route path='/faq' element={ <FaqPage />}/>
+          <Route path="/product" element={<ProductPage />}/>
+          <Route path="*" element={<NotFoundPage/>}/>
+        </Routes>
       </main>
       <Footer />
     </>
