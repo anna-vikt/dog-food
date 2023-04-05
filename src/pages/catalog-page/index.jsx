@@ -4,14 +4,14 @@ import { Spinner } from "../../components/spinner";
 
 import s from './styles.module.css'
 
-export function CatalogPage({cards, handleProductLike, currentUser, isLoading}) {
+export function CatalogPage({isLoading}) {
     return(
         <>
             {isLoading
                 ? <Spinner />
                 : <>
                     <Sort />
-                    <CardList goods={cards} onProductLike={handleProductLike} currentUser={currentUser} />
+                    <CardList o />
                 </>
             }
         </>

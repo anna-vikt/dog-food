@@ -47,7 +47,7 @@ function FaqPage() {
     return (
         <>
             <h1>Часто спрашивают</h1>
-            {dataFAQ.map(data => <Accordion title={data.title}>{data.content}</Accordion>)}
+            {dataFAQ.map((data,index) => <Accordion key={index} title={data.title}>{data.content}</Accordion>)}
         </>
     );
 }

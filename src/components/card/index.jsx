@@ -2,6 +2,10 @@ import cn from 'classnames';
 import './styles.css';
 import { ReactComponent as LikeIcon } from '../../images/save.svg';
 import { calcDiscountPrice, isLiked } from '../../utils/products';
+import { Link } from 'react-router-dom';
+import { useContext } from 'react';
+import { UserContext } from '../../contexts/current-user-context';
+import { CardsContext } from '../../contexts/card-context';
 
 
 export function Card({
@@ -13,14 +17,16 @@ export function Card({
   pictures,
   tags,
   likes,
-  onProductLike,
   _id,
-  currentUser,
   ...props }) {
+  
+  const {currentUser} = useContext(UserContext);
+  const {handleLike: onProductLike} = useContext(CardsContext);
 
   const discount_price = calcDiscountPrice(price, discount);
-
   const like = isLiked(likes, currentUser?._id);
+
+  
 
   function handleClickButtonLike() {
     onProductLike({ likes, _id })
@@ -46,7 +52,7 @@ export function Card({
         </button>
       </div>
 
-      <a href="#" className="card__link">
+      <Link to={`/product/${_id}`} className="card__link">
         <img src={pictures} alt={name} className="card__image" />
         <div className="card__desc">
           {discount !== 0 ? (
@@ -62,7 +68,7 @@ export function Card({
           <span className="card__wight">{wight}</span>
           <h3 className="card__name">{name}</h3>
         </div>
-      </a>
+      </Link>
       <a href="#" className="card__cart btn btn_type_primary">В корзину</a>
     </article>
   );

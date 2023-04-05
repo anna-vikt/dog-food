@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { CardList } from "../card-list";
 import { Footer } from "../footer";
 import { Header } from "../header";
@@ -16,6 +16,11 @@ import { ProductPage } from "../../pages/product-page";
 import FaqPage from "../../pages/faq-page";
 import { Route, Routes } from "react-router";
 import NotFoundPage from "../../pages/not-found-page";
+import { UserContext } from "../../contexts/current-user-context";
+import { CardsContext } from "../../contexts/card-context";
+import { ThemeContext } from "@emotion/react";
+import { theme } from "antd";
+import { themes } from "../../contexts/theme-context";
 
 
 
@@ -25,6 +30,8 @@ export function App() {
   const [searchQuery, setSearchQuery] = useState('');
   const [currentUser, setCurrentUser] = useState(null);
   const debounceSearchQuery = useDebounce(searchQuery, 300);
+  const [theme, setTheme] = useState(themes.light);
+ 
 
   function handleRequest() {
     // const filterCards = dataCard.filter(item => item.name.includes(searchQuery));
@@ -48,13 +55,15 @@ export function App() {
 
   function handleProductLike(product) {
     const like = isLiked(product.likes, currentUser._id)
-    api.changeLikeProductStatus(product._id, like)
+    return api.changeLikeProductStatus(product._id, like)
       .then((updateCard) => {
         const newProducts = cards.map(cardState => {
           return cardState._id === updateCard._id ? updateCard : cardState
         })
 
-        setCards(newProducts)
+        setCards(newProducts);
+
+        return updateCard
       })
   }
 
@@ -63,6 +72,10 @@ export function App() {
       .then((updateUserFromServer) => {
         setCurrentUser(updateUserFromServer)
       })
+  }
+
+  function toggleTheme() {
+    theme === themes.dark ? setTheme(themes.light) : setTheme(themes.dark);
   }
 
   useEffect(() => {
@@ -76,23 +89,39 @@ export function App() {
         setCards(productsData.products);
       })
       .catch(err => console.log(err))
-  }, [])
+  }, []);
 
+ 
   return (
-    <>
-      <Header user={currentUser} onUpdateUser={handleUpdateUser}>
-        <Logo />
-        <Search onSubmit={handleFormSubmit} onChange={handleInputchange} />
-      </Header>
-      <main className="content container">
-        <Routes>
-          <Route path='/' element={<CatalogPage cards={cards} handleProductLike={handleProductLike} currentUser={currentUser} />}/>
-          <Route path='/faq' element={ <FaqPage />}/>
-          <Route path="/product" element={<ProductPage />}/>
-          <Route path="*" element={<NotFoundPage/>}/>
-        </Routes>
-      </main>
-      <Footer />
-    </>
+    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+      <CardsContext.Provider value={{ cards, handleLike: handleProductLike }}>
+        <UserContext.Provider value={{ currentUser, onUpdateUser: handleUpdateUser }}>
+          <Header user={currentUser}>
+            <Routes>
+              <Route path='/' element={
+                <>
+                  <Logo />
+                  <Search
+                    handleFormSubmit={handleFormSubmit}
+                    handleInputChange={handleInputchange}
+                  />
+                </>
+              } />
+              <Route path='*' element={<Logo href="/" />} />
+            </Routes>
+
+          </Header>
+          <main className="content container" style={{ backgroundColor: theme.background }}>
+            <Routes>
+              <Route path='/' element={<CatalogPage handleProductLike={handleProductLike} currentUser={currentUser} />} />
+              <Route path='/faq' element={<FaqPage />} />
+              <Route path="/product/:productId" element={<ProductPage />} />
+              <Route path="*" element={<NotFoundPage />} />
+            </Routes>
+          </main>
+          <Footer />
+        </UserContext.Provider>
+      </CardsContext.Provider>
+    </ThemeContext.Provider>
   );
 }

@@ -69,7 +69,7 @@ const api = new Api({
     baseUrl: 'https://api.react-learning.ru',
     headers: {
         'content-type': 'application/json',
-        authorization: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDEwN2UwOGFhMzk3MTIxODM4ZjI4OTgiLCJncm91cCI6Imdyb3VwLTExIiwiaWF0IjoxNjc4ODAyNDQzLCJleHAiOjE3MTAzMzg0NDN9.Y7nuAVWeA_CGJipJNTktP9raSdpM41B3s-z4l-8rE70'
+        authorization: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDEwN2UwOGFhMzk3MTIxODM4ZjI4Y2MiLCJncm91cCI6Imdyb3VwLTExIiwiaWF0IjoxNjc4ODAyNDQ1LCJleHAiOjE3MTAzMzg0NDV9.kZEWWebomQEcFQ3JyjUuF8l3B_o5sLselfMazIwH6VM'
     }
 })
 
