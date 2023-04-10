@@ -13,7 +13,7 @@ export function Header({children}) {
   }
   const {currentUser, onUpdateUser} = useContext(UserContext);
   const { toggleTheme } = useContext(ThemeContext);
-  console.log(currentUser);
+ 
   return (
     <header className={s.header}>
        <div className={cn('container',s.wrapper)}>
