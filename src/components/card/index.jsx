@@ -9,6 +9,7 @@ import { CardsContext } from '../../contexts/card-context';
 import ContentLoader from 'react-content-loader';
 
 
+
 export function Card({
   name,
   price,
@@ -47,7 +48,7 @@ export function Card({
           <path d="M 0 0 h 185.6 v 187 H 0 z M 0 203 h 186 v 14 H 0 z M 0 233 h 186 v 56 H 0 z M 0 305 h 186 v 24 H 0 z" />
           <rect x="0" y="345" rx="20" ry="20" width="121" height="40" />
         </ContentLoader>
-        
+
         : <article className="card">
           <div className="card__sticky card__sticky_type_top-left">
             {discount !== 0 && (

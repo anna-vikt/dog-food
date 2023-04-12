@@ -18,11 +18,12 @@ import { Route, Routes } from "react-router";
 import NotFoundPage from "../../pages/not-found-page";
 import { UserContext } from "../../contexts/current-user-context";
 import { CardsContext } from "../../contexts/card-context";
-import { ThemeContext } from "@emotion/react";
-import { theme } from "antd";
+import { ThemeContext } from "../../contexts/theme-context";
 import { themes } from "../../contexts/theme-context";
 import { FavoritesPage } from "../../pages/favorite-page";
 import { TABS_ID } from "../../utils/constants";
+import Modal from "../modal";
+import RegisterForm from "../form/register-form";
 
 
 
@@ -36,7 +37,11 @@ export function App() {
   const [isLoading, setIsLoading] = useState(false);
   const debounceSearchQuery = useDebounce(searchQuery, 300);
   const [theme, setTheme] = useState(themes.light);
- 
+  const [modalFormStatus, setModalFormStatus] = useState(true);
+
+  const onCloseModalForm = () => {
+    setModalFormStatus(false)
+  }
 
   function handleRequest() {
     // const filterCards = dataCard.filter(item => item.name.includes(searchQuery));
@@ -68,7 +73,7 @@ export function App() {
 
         setCards(newProducts);
 
-         if (!like) {
+        if (!like) {
           setFavorites(prevState => [...prevState, updateCard])
         } else {
           setFavorites(prevState => prevState.filter(card => card._id !== updateCard._id))
@@ -111,16 +116,16 @@ export function App() {
         setCurrentUser(userInfoData);
         setCards(productsData.products);
 
-        const favoriteProducts = productsData.products.filter(item => isLiked(item.likes, userInfoData._id)) 
-        setFavorites(favoriteProducts) 
+        const favoriteProducts = productsData.products.filter(item => isLiked(item.likes, userInfoData._id))
+        setFavorites(favoriteProducts)
       })
       .catch(err => console.log(err))
   }, []);
 
- 
+
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme }}>
-      <CardsContext.Provider value={{ 
+      <CardsContext.Provider value={{
         cards,
         favorites,
         currentSort,
@@ -128,8 +133,20 @@ export function App() {
         isLoading,
         onSortData: sortedData,
         setCurrentSort
-        }}>
+      }}>
         <UserContext.Provider value={{ currentUser, onUpdateUser: handleUpdateUser }}>
+          <Modal isOpen={modalFormStatus} onClose={onCloseModalForm}>
+            <RegisterForm />
+          </Modal>
+          <Modal isOpen={false} >
+            <RegisterForm />
+          </Modal>
+          <Modal isOpen={false} >
+            <RegisterForm />
+          </Modal>
+          <Modal isOpen={false} >
+            <RegisterForm />
+          </Modal>
           <Header user={currentUser}>
             <Routes>
               <Route path='/' element={
@@ -147,7 +164,7 @@ export function App() {
           </Header>
           <main className="content container" style={{ backgroundColor: theme.background }}>
             <Routes>
-              <Route path='/' element={<CatalogPage handleProductLike={handleProductLike} currentUser={currentUser} isLoading={isLoading}/>} />
+              <Route path='/' element={<CatalogPage handleProductLike={handleProductLike} currentUser={currentUser} isLoading={isLoading} />} />
               <Route path='/faq' element={<FaqPage />} />
               <Route path='/favorites' element={<FavoritesPage />} />
               <Route path="/product/:productId" element={<ProductPage />} />
