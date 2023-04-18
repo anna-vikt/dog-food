@@ -24,6 +24,7 @@ export function Card({
 
   const { currentUser } = useContext(UserContext);
   const { handleLike: onProductLike, isLoading } = useContext(CardsContext);
+  console.log(isLoading)
 
   const discount_price = calcDiscountPrice(price, discount);
   const like = isLiked(likes, currentUser?._id);

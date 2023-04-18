@@ -7,7 +7,7 @@ import { useContext } from 'react';
 import { UserContext } from '../../contexts/current-user-context';
 import { ThemeContext } from '../../contexts/theme-context';
 import { CardsContext } from '../../contexts/card-context';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { ReactComponent as FavoriteIcon } from './img/favorites.svg'
 
 export function Header({ children }) {
@@ -17,6 +17,7 @@ export function Header({ children }) {
   const { currentUser, onUpdateUser } = useContext(UserContext);
   const { toggleTheme } = useContext(ThemeContext);
   const { favorites } = useContext(CardsContext);
+  const location = useLocation();
 
   return (
     <header className={s.header}>
@@ -27,6 +28,7 @@ export function Header({ children }) {
             <FavoriteIcon />
             {favorites.length !== 0 && <span className={s.iconBubble}>{favorites.length}</span>}
           </Link>
+          <Link to="/login" replace state={{backgroundLocation: location, initialPath: location.pathname}}>Войти</Link>
         </div>
         <span>{currentUser?.name}:{currentUser?.about}</span>
         {/* <span>{user?.email}</span> */}

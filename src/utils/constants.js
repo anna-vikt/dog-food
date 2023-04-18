@@ -18,3 +18,6 @@ export const TABS = [
         title: "По скидке"
     }
 ]
+
+
+export const MAX_COUNT_RATING = 5;
