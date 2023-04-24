@@ -23,8 +23,10 @@ import { themes } from "../../contexts/theme-context";
 import { FavoritesPage } from "../../pages/favorite-page";
 import { TABS_ID } from "../../utils/constants";
 import Modal from "../modal";
-import RegisterForm from "../form/register-form";
 import { Link } from "react-router-dom";
+import Login from "../login";
+import Register from "../register";
+import ResetPassword from "../reset-password";
 
 export function App() {
   const [cards, setCards] = useState([]);
@@ -46,7 +48,7 @@ export function App() {
   };
 
   const onCloseRoutingModal = () => {
-    navigate(initialPath || '/', {replace:true})
+    navigate(initialPath || '/', { replace: true })
   }
 
   function handleRequest() {
@@ -139,6 +141,41 @@ export function App() {
       });
   }, []);
 
+  const cbSubmitFormLoginRegister = (dataForm) => {
+    console.log('cbSubmitFormLoginRegister', dataForm);
+  }
+  const cbSubmitFormLogin = (dataForm) => {
+    console.log('cbSubmitFormLogin', dataForm);
+  }
+  const cbSubmitFormResetPassword = (dataForm) => {
+    console.log('cbSubmitFormResetPassword', dataForm);
+  }
+
+  const handleClickButtonLogin = (e) => {
+    e.preventDefault();
+    navigate('/login', { replace: true, state: { backgroundLocation: { ...location, state: null }, initialPath } })
+  }
+  const handleClickButtonReset = (e) => {
+    e.preventDefault();
+    navigate('/reset-password', { replace: true, state: { backgroundLocation: { ...location, state: null }, initialPath } })
+  }
+  const handleClickButtonRegister = (e) => {
+    e.preventDefault();
+    navigate('/register', { replace: true, state: { backgroundLocation: { ...location, state: null }, initialPath } })
+  }
+  const handleClickButtonResetNotModal = (e) => {
+    e.preventDefault();
+    navigate('/reset-password')
+  }
+  const handleClickButtonRegisterNotModal = (e) => {
+    e.preventDefault();
+    navigate('/register')
+  }
+  const handleClickButtonLoginNotModal = (e) => {
+    e.preventDefault();
+    navigate('/login')
+  }
+
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme }}>
       <CardsContext.Provider
@@ -156,10 +193,9 @@ export function App() {
           value={{ currentUser, onUpdateUser: handleUpdateUser }}
         >
           <Modal isOpen={modalFormStatus} onClose={onCloseModalForm}>
-            <RegisterForm />
           </Modal>
           <Header user={currentUser}>
-            <Routes location={backgroundLocation }>
+            <Routes location={(backgroundLocation && { ...backgroundLocation, pathname: initialPath }) || location}>
               <Route
                 path="/"
                 element={
@@ -192,13 +228,13 @@ export function App() {
               /> */}
               <Route path="*" element={<Logo href="/" />} />
             </Routes>
-           
+
           </Header>
           <main
             className="content container"
             style={{ backgroundColor: theme.background }}
           >
-            <Routes location={(backgroundLocation && {...backgroundLocation, pathname: initialPath})}>
+            <Routes location={(backgroundLocation && { ...backgroundLocation, pathname: initialPath }) || location}>
               <Route
                 path="/"
                 element={
@@ -212,30 +248,36 @@ export function App() {
               <Route path="/faq" element={<FaqPage />} />
               <Route path="/favorites" element={<FavoritesPage />} />
               <Route path="/product/:productId" element={<ProductPage />} />
+              <Route path='/login' element={
+                <Login onSubmit={cbSubmitFormLogin} onNavigateRegister={handleClickButtonRegisterNotModal} onNavigateReset={handleClickButtonResetNotModal} />
+              } />
+              <Route path='/register' element={
+                <Register onSubmit={cbSubmitFormLoginRegister} onNavigateLogin={handleClickButtonLoginNotModal} />
+              } />
+              <Route path='/reset-password' element={
+                <ResetPassword onSubmit={cbSubmitFormResetPassword} />
+              } />
               <Route path="*" element={<NotFoundPage />} />
             </Routes>
           </main>
-           <Routes >
-              <Route
-                path="/login"
-                element={
-                  <Modal isOpen onClose={onCloseRoutingModal}>
-                    Авторизация
-                    <Link to="/register" state={{backgroundLocation: {...location, state:null}, initialPath}} replace>Зарегистрироваться</Link>
-                  </Modal>
-                }
-              />
-              <Route
-                path="/register"
-                element={
-                  <Modal isOpen onClose={onCloseRoutingModal}>
-                    Регистрация
-                    <Link to="/login" state={{backgroundLocation: {...location, state:null}, initialPath}} replace >Авторизоваться</Link>
-                  </Modal>
-                }
-              />
-            </Routes>
           <Footer />
+          {backgroundLocation && <Routes>
+            <Route path='/login' element={
+              <Modal isOpen onClose={onCloseRoutingModal}>
+                <Login onSubmit={cbSubmitFormLogin} onNavigateRegister={handleClickButtonRegister} onNavigateReset={handleClickButtonReset} />
+              </Modal>
+            } />
+            <Route path='/register' element={
+              <Modal isOpen onClose={onCloseRoutingModal}>
+                <Register onSubmit={cbSubmitFormLoginRegister} onNavigateLogin={handleClickButtonLogin} />
+              </Modal>
+            } />
+            <Route path='/reset-password' element={
+              <Modal isOpen onClose={onCloseRoutingModal}>
+                <ResetPassword onSubmit={cbSubmitFormResetPassword} />
+              </Modal>
+            } />
+          </Routes>}
         </UserContext.Provider>
       </CardsContext.Provider>
     </ThemeContext.Provider>
